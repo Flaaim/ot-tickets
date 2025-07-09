@@ -22,4 +22,8 @@ composer-install:
 composer-update:
 	docker-compose run --rm php-cli composer update
 
+lint: app-lint
+
+app-lint:
+	docker-compose run --rm php-cli composer lint
 
