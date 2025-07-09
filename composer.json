@@ -15,11 +15,18 @@
         "App\\": "src/"
       }
     },
+    "autoload-dev": {
+      "psr-4": {
+        "Test\\": "tests/"
+      }
+    },
     "scripts" : {
       "app": "php bin/app.php --ansi ",
-      "lint": "phplint"
+      "lint": "phplint",
+      "test": "phpunit"
     },
     "require-dev": {
-        "overtrue/phplint": "^9.6"
+        "overtrue/phplint": "^9.6",
+        "phpunit/phpunit": "^10.5"
     }
 }
