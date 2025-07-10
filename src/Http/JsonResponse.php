@@ -2,12 +2,16 @@
 
 namespace App\Http;
 
+use JsonException;
 use Slim\Psr7\Factory\StreamFactory;
 use Slim\Psr7\Headers;
 use Slim\Psr7\Response;
 
 class JsonResponse extends Response
 {
+    /**
+     * @throws JsonException
+     */
     public function __construct($data, int $status = 200)
     {
         parent::__construct(
