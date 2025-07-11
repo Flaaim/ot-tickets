@@ -6,6 +6,7 @@ namespace App\Auth\Command\JoinByEmail\Request;
 
 use App\Auth\Entity\Email;
 use App\Auth\Entity\Id;
+use App\Auth\Entity\Status;
 use App\Auth\Entity\User;
 use App\Auth\Entity\UserRepository;
 use App\Auth\Service\JoinConfirmationSender;
@@ -39,7 +40,8 @@ class Handler
             $date,
             $email,
             $this->hasher->hash($command->password),
-            $token = $this->tokenizer->generate($date)
+            $token = $this->tokenizer->generate($date),
+            $status = Status::wait()
         );
 
         $this->users->add($user);
