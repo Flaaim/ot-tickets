@@ -11,9 +11,12 @@ class User
         private readonly DateTimeImmutable $date,
         private readonly Email $email,
         private readonly string $passwordHash,
-        private readonly ?Token $joinConfirmToken
+        private readonly ?Token $joinConfirmToken,
+        private Status $status,
     )
-    {}
+    {
+        $this->status = Status::wait();
+    }
 
     public function getId(): Id
     {
@@ -38,5 +41,13 @@ class User
     public function getJoinConfirmToken(): ?Token
     {
         return $this->joinConfirmToken;
+    }
+    public function isWait(): bool
+    {
+        return $this->status->isWait();
+    }
+    public function isActive(): bool
+    {
+        return $this->status->isActive();
     }
 }

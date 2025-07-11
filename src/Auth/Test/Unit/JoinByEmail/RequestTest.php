@@ -4,6 +4,7 @@ namespace App\Auth\Test\Unit\JoinByEmail;
 
 use App\Auth\Entity\Email;
 use App\Auth\Entity\Id;
+use App\Auth\Entity\Status;
 use App\Auth\Entity\Token;
 use App\Auth\Entity\User;
 use DateTimeImmutable;
@@ -19,7 +20,8 @@ class RequestTest extends TestCase
             $date = new DateTimeImmutable(),
             $email = new Email('some@email.ru'),
             $hash = 'hash',
-            $token = new Token(Uuid::uuid4()->toString(), new DateTimeImmutable())
+            $token = new Token(Uuid::uuid4()->toString(), new DateTimeImmutable()),
+            Status::wait(),
         );
 
         self::assertEquals($id, $user->getId());
@@ -27,6 +29,9 @@ class RequestTest extends TestCase
         self::assertEquals($email, $user->getEmail());
         self::assertEquals($hash, $user->getPasswordHash());
         self::assertEquals($token, $user->getJoinConfirmToken());
+
+        self::assertTrue($user->isWait());
+        self::assertFalse($user->isActive());
     }
 
 
