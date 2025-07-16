@@ -2,23 +2,52 @@
 
 namespace App\Auth\Entity;
 
+use ArrayObject;
 use DateTimeImmutable;
 use DomainException;
 
 class User
 {
+    private Id $id;
+    private DateTimeImmutable $date;
+    private Email $email;
     private Status $status;
-    public function __construct(
-        private readonly Id $id,
-        private readonly DateTimeImmutable $date,
-        private readonly Email $email,
-        private readonly string $passwordHash,
-        private ?Token $joinConfirmToken,
-    )
+    private ?string $passwordHash = null;
+    private ?Token $joinConfirmToken = null;
+    private ArrayObject $networks;
+    public function __construct(Id $id, DateTimeImmutable $date, Email $email, Status $status)
     {
-        $this->status = Status::wait();
+        $this->id = $id;
+        $this->date = $date;
+        $this->email = $email;
+        $this->status = $status;
+        $this->networks = new ArrayObject();
+    }
+    public static function requestJoinByEmail(
+        Id $id,
+        DateTimeImmutable $date,
+        Email $email,
+        string $passwordHash,
+        Token $token
+    ): self
+    {
+        $user = new self($id, $date, $email, Status::wait());
+        $user->passwordHash = $passwordHash;
+        $user->joinConfirmToken = $token;
+        return $user;
     }
 
+    public static function requestJoinByNetwork(
+        Id $id,
+        DateTimeImmutable $date,
+        Email $email,
+        NetworkIdentity $identity,
+    ): self
+    {
+        $user = new self($id, $date, $email, Status::active());
+        $user->networks->append($identity);
+        return $user;
+    }
     public function getId(): Id
     {
         return $this->id;
@@ -59,5 +88,10 @@ class User
     public function isActive(): bool
     {
         return $this->status->isActive();
+    }
+    public function getNetworks(): array
+    {
+        /** @var NetworkIdentity[] */
+        return $this->networks->getArrayCopy();
     }
 }

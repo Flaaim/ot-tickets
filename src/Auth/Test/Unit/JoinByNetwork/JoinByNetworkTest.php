@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Auth\Test\Unit\JoinByNetwork;
+
+use App\Auth\Entity\Email;
+use App\Auth\Entity\Id;
+use App\Auth\Entity\NetworkIdentity;
+use App\Auth\Entity\User;
+use DateTimeImmutable;
+use PHPUnit\Framework\TestCase;
+use function PHPUnit\Framework\assertEquals;
+
+class JoinByNetworkTest extends TestCase
+{
+    public function testSuccess()
+    {
+        $user = User::requestJoinByNetwork(
+            $id = Id::generate(),
+            $date = new DateTimeImmutable(),
+            $email = new Email('test@email.ru'),
+            $network = new NetworkIdentity('vk', '0001')
+        );
+
+        self::assertEquals($id, $user->getId());
+        self::assertEquals($date, $user->getDate());
+        self::assertEquals($email, $user->getEmail());
+
+        self::assertTrue($user->isActive());
+        self::assertFalse($user->isWait());
+
+        self::assertCount(1, $networks = $user->getNetworks());
+        self::assertEquals($network, $networks[0] ?? null);
+    }
+}

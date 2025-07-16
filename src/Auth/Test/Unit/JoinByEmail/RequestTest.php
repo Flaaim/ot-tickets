@@ -15,13 +15,12 @@ class RequestTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $user = new User(
+        $user = User::requestJoinByEmail(
             $id = Id::generate(),
             $date = new DateTimeImmutable(),
             $email = new Email('some@email.ru'),
             $hash = 'hash',
             $token = new Token(Uuid::uuid4()->toString(), new DateTimeImmutable()),
-            Status::wait(),
         );
 
         self::assertEquals($id, $user->getId());
