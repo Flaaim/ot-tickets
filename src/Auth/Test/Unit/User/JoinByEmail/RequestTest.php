@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Auth\Test\Unit\JoinByEmail;
+namespace App\Auth\Test\Unit\User\JoinByEmail;
 
 use App\Auth\Entity\Email;
 use App\Auth\Entity\Id;
-use App\Auth\Entity\Status;
 use App\Auth\Entity\Token;
 use App\Auth\Entity\User;
 use DateTimeImmutable;

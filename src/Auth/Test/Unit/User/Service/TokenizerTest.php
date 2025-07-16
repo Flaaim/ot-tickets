@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Auth\Test\Unit\Service;
+namespace App\Auth\Test\Unit\User\Service;
 
 use App\Auth\Service\Tokenizer;
 use DateInterval;

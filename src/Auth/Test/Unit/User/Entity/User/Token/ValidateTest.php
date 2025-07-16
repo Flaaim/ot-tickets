@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Auth\Test\Unit\Entity\User\Token;
+namespace App\Auth\Test\Unit\User\Entity\User\Token;
 
 use App\Auth\Entity\Token;
 use DateTimeImmutable;

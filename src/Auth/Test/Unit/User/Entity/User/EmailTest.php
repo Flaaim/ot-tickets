@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Auth\Test\Unit\Entity\User;
+namespace App\Auth\Test\Unit\User\Entity\User;
 
 use App\Auth\Entity\Email;
 use PHPUnit\Framework\TestCase;

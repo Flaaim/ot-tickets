@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Auth\Test\Unit\JoinByNetwork;
+namespace App\Auth\Test\Unit\User\JoinByNetwork;
 
 use App\Auth\Entity\Email;
 use App\Auth\Entity\Id;
@@ -8,7 +8,6 @@ use App\Auth\Entity\NetworkIdentity;
 use App\Auth\Entity\User;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
-use function PHPUnit\Framework\assertEquals;
 
 class JoinByNetworkTest extends TestCase
 {

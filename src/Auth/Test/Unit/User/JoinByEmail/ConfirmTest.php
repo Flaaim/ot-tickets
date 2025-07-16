@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Auth\Test\Unit\JoinByEmail;
+namespace App\Auth\Test\Unit\User\JoinByEmail;
 
 use App\Auth\Entity\Token;
 use App\Auth\Test\Builder\UserBuilder;
-use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
