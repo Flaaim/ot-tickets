@@ -2,7 +2,6 @@
 
 namespace App\Auth\Entity;
 
-use DomainException;
 use Webmozart\Assert\Assert;
 
 class Email
