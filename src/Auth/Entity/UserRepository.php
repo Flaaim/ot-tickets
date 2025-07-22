@@ -12,6 +12,8 @@ interface UserRepository
      * @throws \DomainException
      */
     public function getByEmail(Email $email): User;
+
+    public function findByPasswordResetToken(string $token): ?User;
     public function add(User $user): void;
     public function hasByNetwork(NetworkIdentity $identity): bool;
 
