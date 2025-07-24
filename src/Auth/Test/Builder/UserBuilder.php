@@ -32,6 +32,12 @@ class UserBuilder
         $clone->joinConfirmToken = $token;
         return $clone;
     }
+    public function withEmail(Email $email): self
+    {
+        $clone = clone $this;
+        $clone->email = $email;
+        return $clone;
+    }
     public function active(): self
     {
         $clone = clone $this;
