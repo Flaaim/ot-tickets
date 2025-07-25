@@ -18,12 +18,14 @@ class User
     private ?Token $passwordResetToken = null;
     private ?Email $newEmail = null;
     private ?Token $newEmailToken = null;
+    private Role $role;
     public function __construct(Id $id, DateTimeImmutable $date, Email $email, Status $status)
     {
         $this->id = $id;
         $this->date = $date;
         $this->email = $email;
         $this->status = $status;
+        $this->role = Role::user();
         $this->networks = new ArrayObject();
     }
     public static function requestJoinByEmail(
@@ -165,5 +167,15 @@ class User
     public function getNewEmailToken(): ?Token
     {
         return $this->newEmailToken;
+    }
+
+    public function getRole(): Role
+    {
+        return $this->role;
+    }
+
+    public function changeRole(Role $role): void
+    {
+        $this->role = $role;
     }
 }
