@@ -21,7 +21,7 @@ class Handler
     {
         $identity = new NetworkIdentity($command->network, $command->identity);
 
-        if($users->hasByNetwork($identity)) {
+        if($this->users->hasByNetwork($identity)) {
             throw new \DomainException('User with this network already exists.');
         }
 
