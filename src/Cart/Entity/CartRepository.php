@@ -2,7 +2,7 @@
 
 namespace App\Cart\Entity;
 
-Interface CartRepository
+interface CartRepository
 {
     /**
      * @param Id $id
@@ -10,4 +10,8 @@ Interface CartRepository
      * @throws \DomainException
      */
     public function get(Id $id): Cart;
+
+    public function getCurrentCart(): Cart; //Для сессий.
+
+    public function save(Cart $cart): void;
 }
