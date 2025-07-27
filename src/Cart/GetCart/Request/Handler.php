@@ -2,10 +2,9 @@
 
 namespace App\Cart\Get\Request;
 
-use App\Cart\Entity\Cart;
 use App\Cart\Entity\CartRepository;
-use App\Cart\Entity\Id;
 use App\Cart\Get\Response\Response;
+use App\Shared\Domain\ValueObject\Id;
 
 
 class Handler

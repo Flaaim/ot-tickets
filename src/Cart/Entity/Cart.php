@@ -2,6 +2,8 @@
 
 namespace App\Cart\Entity;
 
+use App\Product\Entity\Product;
+use App\Shared\Domain\ValueObject\Id;
 use ArrayObject;
 
 class Cart

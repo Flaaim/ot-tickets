@@ -2,6 +2,8 @@
 
 namespace App\Cart\Entity;
 
+use App\Shared\Domain\ValueObject\Id;
+
 interface CartRepository
 {
     /**

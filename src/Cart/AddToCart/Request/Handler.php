@@ -4,8 +4,8 @@ namespace App\Cart\Add\Request;
 
 use App\Cart\Add\Response\Response;
 use App\Cart\Entity\CartRepository;
-use App\Cart\Entity\Id;
-use App\Cart\Entity\ProductRepository;
+use App\Product\Entity\ProductRepository;
+use App\Shared\Domain\ValueObject\Id;
 
 class Handler
 {
