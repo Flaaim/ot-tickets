@@ -1,16 +1,19 @@
 <?php
 
-namespace App\Cart\Entity;
+namespace App\Product\Entity;
+
+use App\Shared\Domain\ValueObject\Id;
+use DateTimeImmutable;
 
 class Product
 {
     private Id $id;
     private string $name;
     private string $description;
-    private string $price;
+    private Price $price;
     private string $cipher;
 
-    public function __construct(Id $id)
+    public function __construct(Id $id, string $name, string $description, Price $price, string $cipher, DateTimeImmutable $updatedAt)
     {
         $this->id = $id;
     }

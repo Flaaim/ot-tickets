@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Cart\Entity;
+namespace App\Product\Entity;
 
 interface ProductRepository
 {
