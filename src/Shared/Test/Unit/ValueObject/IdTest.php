@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Cart\Test\Unit\Entity;
+namespace App\Shared\Test\Unit\ValueObject;
 
-use App\Cart\Entity\Id;
+use App\Shared\Domain\ValueObject\Id;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
