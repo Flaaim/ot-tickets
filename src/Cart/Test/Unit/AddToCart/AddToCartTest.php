@@ -3,8 +3,7 @@
 namespace App\Cart\Test\Unit\AddToCart;
 
 use App\Cart\Entity\Cart;
-use App\Cart\Test\Unit\Builder\ProductBuilder;
-use App\Product\Entity\Product;
+use App\Product\Test\Builder\ProductBuilder;
 use App\Shared\Domain\ValueObject\Id;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;

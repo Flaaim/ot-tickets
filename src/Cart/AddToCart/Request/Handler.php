@@ -30,6 +30,9 @@ class Handler
 
         $this->carts->save($cart);
 
-        return new Response($cart);
+        return new Response(
+            $cart->getId()->getValue(),
+            $cart->getProducts()
+        );
     }
 }

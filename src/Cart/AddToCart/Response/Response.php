@@ -3,11 +3,13 @@
 namespace App\Cart\Add\Response;
 
 use App\Cart\Entity\Cart;
+use ArrayObject;
 
 class Response
 {
-    private Cart $cart;
-    public function __construct(Cart $cart){
-        $this->cart = $cart;
-    }
+    public function __construct(
+        private readonly string $id,
+        private readonly array $products,
+    )
+    {}
 }
