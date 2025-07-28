@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Cart\Add\Response;
+namespace App\Cart\AddToCart\Response;
 
-use App\Cart\Entity\Cart;
-use ArrayObject;
 
 class Response
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace AddProduct;
+namespace CreateProduct;
 
 use App\Product\Entity\Price;
 use App\Product\Entity\Product;
@@ -8,7 +8,7 @@ use App\Shared\Domain\ValueObject\Id;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
-class AddProductTest extends TestCase
+class CreateProductTest extends TestCase
 {
     public function testSuccess(): void
     {

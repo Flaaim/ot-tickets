@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Cart\Get\Response;
+namespace App\Cart\GetCart\Response;
 
 use App\Cart\Entity\Cart;
 
 class Response
 {
-    private Cart $cart;
-    public function __construct(Cart $cart){
-        $this->cart = $cart;
-    }
+    public function __construct(
+        private readonly string $id,
+        private readonly array $products
+    ){}
 }

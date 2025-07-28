@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Cart\Get\Request;
+namespace App\Cart\GetCart\Request;
 
 use App\Cart\Entity\CartRepository;
-use App\Cart\Get\Response\Response;
+use App\Cart\GetCart\Response\Response;
 use App\Shared\Domain\ValueObject\Id;
 
 
@@ -18,6 +18,9 @@ class Handler
     {
         $cart = $this->carts->get(new Id($command->id));
 
-        return new Response($cart);
+        return new Response(
+            $cart->getId()->getValue(),
+            $cart->getProducts()
+        );
     }
 }

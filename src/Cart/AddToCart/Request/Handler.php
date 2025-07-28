@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Cart\Add\Request;
+namespace App\Cart\AddToCart\Request;
 
-use App\Cart\Add\Response\Response;
+use App\Cart\AddToCart\Response\Response;
 use App\Cart\Entity\CartRepository;
 use App\Product\Entity\ProductRepository;
 use App\Shared\Domain\ValueObject\Id;

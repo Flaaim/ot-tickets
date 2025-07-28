@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Cart\Add\Request;
+namespace App\Cart\AddToCart\Request;
 
 class Command
 {
