@@ -40,4 +40,34 @@ class ProductBuilder
 
         return $product;
     }
+
+    public function getId(): Id
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function getPrice(): Price
+    {
+        return $this->price;
+    }
+
+    public function getCipher(): string
+    {
+        return $this->cipher;
+    }
+
+    public function getUpdatedAt(): DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
 }
