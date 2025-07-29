@@ -30,4 +30,8 @@ final class Price
     {
         return $this->value === $other->value;
     }
+    public function formatted(string $currency = '₽'): string
+    {
+        return number_format($this->value, 2, '.', ' ') . ' ' . $currency;
+    }
 }
