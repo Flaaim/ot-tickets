@@ -14,4 +14,6 @@ interface ProductRepository
     public function get(Id $id): Product;
 
     public function save(Product $product): void;
+
+    public function findByQuery(string $query): ?Product;
 }
