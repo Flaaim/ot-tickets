@@ -15,7 +15,7 @@ docker-pull:
 docker-build-pull:
 	docker-compose build --pull
 
-app-init: composer-install
+app-init: app-permissions composer-install
 
 composer-install:
 	docker-compose run --rm php-cli composer install
@@ -28,3 +28,6 @@ app-lint:
 
 app-test:
 	docker-compose run --rm php-cli composer test
+
+app-permissions:
+	docker run --rm -v ${PWD}:/app -w /app alpine chmod 777 var
