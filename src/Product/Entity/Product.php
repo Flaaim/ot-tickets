@@ -9,16 +9,18 @@ use Webmozart\Assert\Assert;
 class Product
 {
     public function __construct(
-        private Id $id,
-        private string $name,
-        private string $description,
-        private Price $price,
-        private string $cipher,
-        private DateTimeImmutable $updatedAt
+        private readonly Id                $id,
+        private string                     $name,
+        private string                     $description,
+        private Price                      $price,
+        private string                     $cipher,
+        private readonly DateTimeImmutable $updatedAt,
+        private Status                     $status
     ) {
         Assert::minLength($this->name, 3);
         Assert::minLength($this->description, 10);
         Assert::regex($this->cipher, '/^[A-Za-z0-9-]+$/');
+        Assert::notNull($status);
     }
     public function isEqualTo(self $product): bool
     {
@@ -54,7 +56,10 @@ class Product
     {
         return $this->updatedAt;
     }
-
+    public function getStatus(): Status
+    {
+        return $this->status;
+    }
     public function changePrice(Price $price): void
     {
         $this->price = $price;
@@ -71,5 +76,21 @@ class Product
     public function changeCipher(?string $cipher): void
     {
         $this->cipher = $cipher;
+    }
+
+    public function archive(): void
+    {
+        if($this->status->isArchived()){
+            throw new \DomainException('Product is already archived');
+        }
+        $this->status = Status::archive();
+    }
+
+    public function activate(): void
+    {
+        if($this->status->isActive()){
+            throw new \DomainException('Product is already active');
+        }
+        $this->status = Status::active();
     }
 }
