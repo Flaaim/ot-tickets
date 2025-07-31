@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Product\Test\GetProductDetails;
+namespace App\Product\Test\Unit\GetProductDetails;
 
-use App\Product\Entity\Product;
-use App\Product\Test\Builder\ProductBuilder;
+use App\Product\Test\Unit\Builder\ProductBuilder;
 use PHPUnit\Framework\TestCase;
 
 class GetProductDetailsTest extends TestCase

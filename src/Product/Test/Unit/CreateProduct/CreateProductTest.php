@@ -1,6 +1,6 @@
 <?php
 
-namespace CreateProduct;
+namespace App\Product\Test\Unit\CreateProduct;
 
 use App\Product\Entity\Price;
 use App\Product\Entity\Product;
