@@ -59,4 +59,17 @@ class Product
     {
         $this->price = $price;
     }
+    public function changeName(?string $name): void
+    {
+        $this->name = $name;
+    }
+    public function changeDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function changeCipher(?string $cipher): void
+    {
+        $this->cipher = $cipher;
+    }
 }
