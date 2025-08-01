@@ -30,7 +30,7 @@ class PriceTest extends TestCase
     }
     public function testSubtractPrice(): void
     {
-        $price = (new Price($value = 12.34))->subtract(new Price($other = 12.34));
+        $price = (new Price($value = 200.00))->subtract(new Price($other = 100.00));
         $subtract = $value - $other;
         $this->assertEquals($subtract, $price->getValue());
     }
