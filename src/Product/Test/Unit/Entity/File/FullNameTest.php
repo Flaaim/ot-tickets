@@ -32,6 +32,6 @@ class FullNameTest extends TestCase
     }
     private function getFileExtension(): FileExtension
     {
-        return new FileExtension('application/msword');
+        return new FileExtension('docx');
     }
 }

@@ -36,7 +36,7 @@ class FilePathTest extends TestCase
     {
         return new FullName(
             new FileName(Uuid::uuid4()->toString()),
-            new FileExtension('application/msword')
+            new FileExtension('docx')
         );
     }
 }
