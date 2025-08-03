@@ -2,7 +2,7 @@
 
 namespace App\Product\Test\Unit\Entity\File;
 
-use App\Product\Entity\File\FileExtension;
+use App\Product\Service\FileExtensionFromMime;
 use PHPUnit\Framework\TestCase;
 
 class FileExtensionTest extends TestCase
@@ -13,12 +13,12 @@ class FileExtensionTest extends TestCase
             'application/msword' => 'doc',
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx'
         ];
-        $fileExtension = new FileExtension($value = 'application/msword');
+        $fileExtension = new FileExtensionFromMime($value = 'application/msword');
 
         $this->assertEquals($mimeTypes[$value], $fileExtension->getValue());
         $this->assertNotNull($fileExtension->getValue());
 
-        $fileExtension = new FileExtension($value = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+        $fileExtension = new FileExtensionFromMime($value = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 
         $this->assertEquals($mimeTypes[$value], $fileExtension->getValue());
     }
@@ -26,12 +26,12 @@ class FileExtensionTest extends TestCase
     public function testInvalidExtension(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        new FileExtension('application/pdf');
+        new FileExtensionFromMime('application/pdf');
     }
 
     public function testInvalidEmpty(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        new FileExtension('');
+        new FileExtensionFromMime('');
     }
 }
