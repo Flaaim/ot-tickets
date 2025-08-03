@@ -7,7 +7,6 @@ use Webmozart\Assert\Assert;
 
 class FileExtensionFromMime
 {
-    private MimeTypeMapper $mimeType;
     private string $value;
     public function __construct(string $value, MimeTypeMapper $mimeTypeMapper)
     {
