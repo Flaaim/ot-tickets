@@ -3,7 +3,7 @@
 namespace App\Product\Test\Unit\UpdateProduct;
 
 use App\Product\Entity\Price;
-use App\Product\Test\Unit\Builder\ProductBuilder;
+use App\Product\Test\Builder\ProductBuilder;
 use PHPUnit\Framework\TestCase;
 
 class UpdateProductTest extends TestCase

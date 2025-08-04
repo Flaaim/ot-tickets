@@ -5,7 +5,6 @@ namespace App\Auth\Test\Unit\User\ChangeEmail;
 use App\Auth\Entity\Email;
 use App\Auth\Entity\Token;
 use App\Auth\Test\Builder\UserBuilder;
-use Couchbase\User;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;

@@ -2,7 +2,7 @@
 
 namespace App\Product\Test\Unit\GetProductDetails;
 
-use App\Product\Test\Unit\Builder\ProductBuilder;
+use App\Product\Test\Builder\ProductBuilder;
 use PHPUnit\Framework\TestCase;
 
 class GetProductDetailsTest extends TestCase

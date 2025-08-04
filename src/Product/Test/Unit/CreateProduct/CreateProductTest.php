@@ -4,6 +4,7 @@ namespace App\Product\Test\Unit\CreateProduct;
 
 use App\Product\Entity\Price;
 use App\Product\Entity\Product;
+use App\Product\Entity\Status;
 use App\Shared\Domain\ValueObject\Id;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
@@ -19,6 +20,7 @@ class CreateProductTest extends TestCase
             $price = new Price(100),
             $cipher = 'AES-128-CBC',
             $updatedAt = new DateTimeImmutable(),
+            $status = Status::active()
         );
 
         $this->assertEquals($id, $product->getId());
@@ -27,5 +29,6 @@ class CreateProductTest extends TestCase
         $this->assertEquals($price, $product->getPrice());
         $this->assertEquals($cipher, $product->getCipher());
         $this->assertEquals($updatedAt, $product->getUpdatedAt());
+        $this->assertEquals($status, $product->getStatus());
     }
 }

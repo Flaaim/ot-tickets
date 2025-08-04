@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Product\Test\Unit\Builder;
+namespace App\Product\Test\Builder;
 
 use App\Product\Entity\Price;
 use App\Product\Entity\Product;
+use App\Product\Entity\Status;
 use App\Shared\Domain\ValueObject\Id;
 use DateTimeImmutable;
 use Ramsey\Uuid\Uuid;
@@ -16,6 +17,7 @@ class ProductBuilder
     private Price $price;
     private string $cipher;
     private DateTimeImmutable $updatedAt;
+    private Status $status;
 
     public function __construct(
     ){
@@ -25,6 +27,7 @@ class ProductBuilder
         $this->price = new Price('200', 'RUB');
         $this->cipher = 'cipher';
         $this->updatedAt = new DateTimeImmutable('now');
+        $this->status = Status::active();
     }
 
     public function build(): Product
@@ -35,12 +38,18 @@ class ProductBuilder
             $this->description,
             $this->price,
             $this->cipher,
-            $this->updatedAt
+            $this->updatedAt,
+            $this->status
         );
 
         return $product;
     }
-
+    public function archive(): self
+    {
+        $clone = clone $this;
+        $clone->status = Status::archive();
+        return $clone;
+    }
     public function getId(): Id
     {
         return $this->id;
