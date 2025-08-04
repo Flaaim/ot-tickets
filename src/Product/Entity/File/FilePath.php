@@ -15,5 +15,9 @@ class FilePath
         return $this->value;
     }
 
+    public function isFileExists(): bool
+    {
+        return file_exists($this->value);
+    }
 
 }
