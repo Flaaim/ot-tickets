@@ -3,50 +3,27 @@
 namespace App\Product\Service;
 
 use App\Product\Entity\File;
-use App\Product\Entity\File\FileName;
-use App\Product\Entity\File\FilePath;
-use App\Product\Entity\File\FileSize;
-use App\Product\Entity\File\FullName;
-use Ramsey\Uuid\Uuid;
+use App\Product\Entity\File\UploadDirectory;
 use Slim\Psr7\UploadedFile;
 
 class Uploader
 {
-    private File\UploadDirectory $uploadDirectory;
-    private MimeTypeMapper $mimeTypeMapper;
-    public function __construct(
-        File\UploadDirectory $uploadDirectory,
-        MimeTypeMapper $mimeTypeMapper
-    ){
-        $uploadDirectory->ensureExists();
-        $this->uploadDirectory = $uploadDirectory;
+    private FileBuilder $fileBuilder;
+    public function __construct(FileBuilder $fileBuilder){
+        $this->fileBuilder = $fileBuilder;
     }
-    public function upload(UploadedFile $uploadedFile): File
+    public function upload(UploadedFile $file, UploadDirectory $directory): File
     {
-
-        if($uploadedFile->getError() === UPLOAD_ERR_OK) {
-
-            $fileExtensionFromMine = new FileExtensionFromMime($uploadedFile->getClientMediaType(), $this->mimeTypeMapper);
-            $fullName = new FullName(
-                $filename = new FileName(Uuid::uuid4()->toString()),
-                $extension = $fileExtensionFromMine->getFileExtensionFromMime()
-            );
-
-            $filePath = new FilePath($this->uploadDirectory, $fullName);
-            $size = new FileSize($uploadedFile->getSize());
-
-            $uploadedFile->moveTo($filePath->getValue());
-
-            return new File(
-                $filename,
-                $extension,
-                $filePath,
-                $size,
-            );
+        if ($file->getError() !== UPLOAD_ERR_OK) {
+            throw new \RuntimeException('Upload error: ' . $file->getError());
         }
 
-    }
+        $fileObj = $this->fileBuilder->buildFromUploadFile($file, $directory);
 
+        $file->moveTo($fileObj->getPath());
+
+        return $fileObj;
+    }
     public function rollback(File $file): void
     {
         if(file_exists($file->getPath())) {

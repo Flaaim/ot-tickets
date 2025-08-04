@@ -2,8 +2,6 @@
 
 namespace App\Product\Entity\File;
 
-use Webmozart\Assert\Assert;
-
 class FilePath
 {
     private string $value;

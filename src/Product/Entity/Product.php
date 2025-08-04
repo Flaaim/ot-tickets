@@ -15,7 +15,8 @@ class Product
         private Price                      $price,
         private string                     $cipher,
         private readonly DateTimeImmutable $updatedAt,
-        private Status                     $status
+        private Status                     $status,
+        private ?File                      $file = null
     ) {
         Assert::minLength($this->name, 3);
         Assert::minLength($this->description, 10);
@@ -81,7 +82,7 @@ class Product
     public function archive(): void
     {
         if($this->status->isArchived()){
-            throw new \DomainException('Product is already archived');
+            throw new \DomainException('Product is already archived.');
         }
         $this->status = Status::archive();
     }
@@ -89,8 +90,13 @@ class Product
     public function activate(): void
     {
         if($this->status->isActive()){
-            throw new \DomainException('Product is already active');
+            throw new \DomainException('Product is already active.');
         }
         $this->status = Status::active();
+    }
+
+    public function addFile(File $file): void
+    {
+        $this->file = $file;
     }
 }
