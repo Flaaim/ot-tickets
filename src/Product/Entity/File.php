@@ -21,10 +21,34 @@ class File
         $this->extension = $extension;
         $this->size = $size;
     }
-
     public function getPath(): string
     {
         return $this->path->getValue();
     }
-
+    public function getFilename(): string
+    {
+        return $this->filename->getValue();
+    }
+    public function getExtension(): string
+    {
+        return $this->extension->getValue();
+    }
+    public function getSize(): int
+    {
+        return $this->size->getValue();
+    }
+    public function isFileExists(): bool
+    {
+        return $this->path->isFileExists();
+    }
+    public function deleteFile(): void
+    {
+        try {
+            if ($this->isFileExists()) {
+                unlink($this->getPath());
+            }
+        } catch (\Throwable $e) {
+            throw new \RuntimeException('Failed to delete file: ' . $this->getPath(), 0, $e);
+        }
+    }
 }
