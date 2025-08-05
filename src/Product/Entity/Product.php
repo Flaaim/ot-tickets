@@ -94,9 +94,11 @@ class Product
         }
         $this->status = Status::active();
     }
-
     public function addFile(File $file): void
     {
+        if($this->file !== null && $this->file->isFileExists()){
+            $this->file->deleteFile();
+        }
         $this->file = $file;
     }
 }
