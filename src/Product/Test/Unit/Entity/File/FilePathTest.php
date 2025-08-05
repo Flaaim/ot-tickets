@@ -41,6 +41,7 @@ class FilePathTest extends TestCase
 
     public function testIsFileNotExists(): void
     {
+        file_put_contents($this->testFilePath, 'test content');
         unlink($this->testFilePath);
         $this->assertFalse($this->filePath->isFileExists());
     }
