@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
 use Doctrine\ORM\ORMSetup;
-use Doctrine\ORM\Tools\Console\Command\ValidateSchemaCommand;
 use Doctrine\ORM\Tools\Console\EntityManagerProvider;
 use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
 use Psr\Container\ContainerInterface;
@@ -47,7 +46,9 @@ return [
                 'dbname' => $_ENV['DB_NAME'],
                 'charset' => 'utf-8'
             ],
-            'metadata_dirs' => [],
+            'metadata_dirs' => [
+                __DIR__ . '/../../src/Auth/Entity'
+            ],
         ],
     ],
     EntityManagerProvider::class => function (ContainerInterface $container): SingleManagerProvider {

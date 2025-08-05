@@ -5,7 +5,10 @@ namespace App\Auth\Entity;
 use ArrayObject;
 use DateTimeImmutable;
 use DomainException;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity]
+#[ORM\Table(name: 'auth_users')]
 class User
 {
     private Id $id;
