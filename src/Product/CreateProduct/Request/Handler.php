@@ -6,6 +6,7 @@ use App\Product\CreateProduct\Response\Response;
 use App\Product\Entity\Price;
 use App\Product\Entity\Product;
 use App\Product\Entity\ProductRepository;
+use App\Product\Entity\Status;
 use App\Shared\Domain\ValueObject\Id;
 use DateTimeImmutable;
 
@@ -25,7 +26,8 @@ class Handler
             $command->description,
             new Price($command->price),
             $command->cipher,
-            new DateTimeImmutable()
+            new DateTimeImmutable(),
+            Status::active()
         );
 
         $this->products->save($product);
