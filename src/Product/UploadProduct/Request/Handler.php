@@ -7,6 +7,7 @@ use App\Product\Entity\ProductRepository;
 use App\Product\Service\FileBuilder;
 use App\Product\Service\MimeTypeMapper;
 use App\Product\Service\Uploader;
+use App\Product\UploadProduct\Response\Response;
 use App\Shared\Domain\ValueObject\Id;
 
 class Handler
@@ -20,8 +21,9 @@ class Handler
         MimeTypeMapper $mimeTypeMapper
     )
     {
+        $this->uploadDirectory = $uploadDirectory;
+        $this->mimeTypeMapper = $mimeTypeMapper;
         $this->products = $products;
-
     }
 
     public function handle(Command $command)
@@ -43,5 +45,6 @@ class Handler
             throw $e;
         }
 
+        return new Response($product->getId()->getValue());
     }
 }
