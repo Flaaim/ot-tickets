@@ -43,12 +43,6 @@ class File
     }
     public function deleteFile(): void
     {
-        try {
-            if ($this->isFileExists()) {
-                unlink($this->getPath());
-            }
-        } catch (\Throwable $e) {
-            throw new \RuntimeException('Failed to delete file: ' . $this->getPath(), 0, $e);
-        }
+        $this->path->deleteFile();
     }
 }

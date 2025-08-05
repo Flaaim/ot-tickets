@@ -45,6 +45,20 @@ class FilePathTest extends TestCase
         unlink($this->testFilePath);
         $this->assertFalse($this->filePath->isFileExists());
     }
+
+    public function testDeleteSuccess(): void
+    {
+        file_put_contents($this->testFilePath, 'test content');
+        $this->filePath->deleteFile();
+        $this->assertFalse($this->filePath->isFileExists());
+    }
+
+    public function testDeleteFileNotFound(): void
+    {
+        $this->expectException(\DomainException::class);
+        $this->filePath->deleteFile();
+    }
+
     public function tearDown(): void
     {
         if (file_exists($this->testFilePath)) {
