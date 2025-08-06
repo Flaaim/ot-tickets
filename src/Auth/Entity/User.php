@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'auth_users')]
 class User
 {
+    #[ORM\Id]
+    #[ORM\Column(type: 'auth_user_id', unique: true)]
     private Id $id;
     #[ORM\Column(type: 'datetime_immutable' )]
     private DateTimeImmutable $date;
