@@ -22,10 +22,13 @@ class User
     private Status $status;
     #[ORM\Column(type: 'string', nullable: true )]
     private ?string $passwordHash = null;
+    #[ORM\Embedded(class: Token::class)]
     private ?Token $joinConfirmToken = null;
+    #[ORM\Embedded(class: Token::class)]
     private ?Token $passwordResetToken = null;
     #[ORM\Column(type: 'auth_user_email', unique: true)]
     private ?Email $newEmail = null;
+    #[ORM\Embedded(class: Token::class)]
     private ?Token $newEmailToken = null;
     #[ORM\Column(type: 'auth_user_role', length: 16)]
     private Role $role;
