@@ -2,8 +2,9 @@
 
 namespace App\Auth\Entity;
 
-use ArrayObject;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use DomainException;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,7 +34,7 @@ class User
     private ?Token $newEmailToken = null;
     #[ORM\Column(type: 'auth_user_role', length: 16)]
     private Role $role;
-    private ArrayObject $networks;
+    private Collection $networks;
     public function __construct(Id $id, DateTimeImmutable $date, Email $email, Status $status)
     {
         $this->id = $id;
@@ -41,7 +42,7 @@ class User
         $this->email = $email;
         $this->status = $status;
         $this->role = Role::user();
-        $this->networks = new ArrayObject();
+        $this->networks = new ArrayCollection();
     }
     public static function requestJoinByEmail(
         Id $id,
@@ -65,7 +66,7 @@ class User
     ): self
     {
         $user = new self($id, $date, $email, Status::active());
-        $user->networks->append($identity);
+        $user->networks->add($identity);
         return $user;
     }
     public function getId(): Id
@@ -113,7 +114,7 @@ class User
                 throw new DomainException('Network is already attached.');
             }
         }
-        $this->networks->append($identity);
+        $this->networks->add($identity);
     }
     public function isWait(): bool
     {
@@ -171,7 +172,7 @@ class User
     public function getNetworks(): array
     {
         /** @var Network[] */
-        return $this->networks->getArrayCopy();
+        return $this->networks->toArray();
     }
 
     public function getNewEmail(): ?Email
