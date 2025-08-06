@@ -56,6 +56,9 @@ return [
             ],
             'types' => [
                 App\Auth\Entity\IdType::NAME => App\Auth\Entity\IdType::class,
+                App\Auth\Entity\EmailType::NAME => App\Auth\Entity\EmailType::class,
+                App\Auth\Entity\StatusType::NAME => App\Auth\Entity\StatusType::class,
+                App\Auth\Entity\RoleType::NAME => App\Auth\Entity\RoleType::class,
             ]
         ],
     ],
