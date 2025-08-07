@@ -4,16 +4,18 @@ namespace App\Cart\Entity;
 
 use App\Product\Entity\Product;
 use App\Shared\Domain\ValueObject\Id;
-use ArrayObject;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 
 class Cart
 {
     private Id $id;
-    private ArrayObject $products;
+    private Collection $products;
     public function __construct(Id $id)
     {
         $this->id = $id;
-        $this->products = new ArrayObject();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): Id
@@ -28,11 +30,11 @@ class Cart
                 throw new \DomainException("Product already exists.");
             }
         }
-        $this->products->append($product);
+        $this->products->add($product);
     }
 
     public function getProducts(): array
     {
-        return $this->products->getArrayCopy();
+        return $this->products->toArray();
     }
 }
