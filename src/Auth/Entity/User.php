@@ -34,6 +34,7 @@ class User
     private ?Token $newEmailToken = null;
     #[ORM\Column(type: 'auth_user_role', length: 16)]
     private Role $role;
+    #[ORM\OneToMany(targetEntity: UserNetwork::class, mappedBy: 'user', cascade: ['all'], orphanRemoval: true)]
     private Collection $networks;
     public function __construct(Id $id, DateTimeImmutable $date, Email $email, Status $status)
     {
