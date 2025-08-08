@@ -2,14 +2,20 @@
 
 namespace App\Product\Entity;
 
+use Webmozart\Assert\Assert;
+
 class Status
 {
-    private const ACTIVE = 'active';
-    private const ARCHIVED = 'archived';
+    public const ACTIVE = 'active';
+    public const ARCHIVED = 'archived';
     private string $name;
 
-    private function __construct(string $name)
+    public function __construct(string $name)
     {
+        Assert::oneOf($name, [
+            self::ACTIVE,
+            self::ARCHIVED,
+        ]);
         $this->name = $name;
     }
     public function isActive(): bool
@@ -27,5 +33,9 @@ class Status
     public static function archive(): self
     {
         return new self(self::ARCHIVED);
+    }
+    public function getName(): string
+    {
+        return $this->name;
     }
 }

@@ -11,6 +11,18 @@ use PHPUnit\Framework\TestCase;
  */
 class StatusTest extends TestCase
 {
+    public function testSuccess(): void
+    {
+        $status = new Status($value = Status::ACTIVE);
+
+        $this->assertNotNull($status->getName());
+        $this->assertSame($value, $status->getName());
+    }
+    public function testInvalid(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        new Status('invalid');
+    }
     public function testActive(): void
     {
         $status = Status::active();
