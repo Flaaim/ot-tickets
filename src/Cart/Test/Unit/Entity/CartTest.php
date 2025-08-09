@@ -15,7 +15,6 @@ class CartTest extends TestCase
     {
         $cart = new Cart(
             $id = new Id(Uuid::uuid4()->toString()),
-            $user = $this->getUser()
         );
 
         $this->assertEquals($cart->getId(), $id);

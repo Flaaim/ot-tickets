@@ -3,6 +3,7 @@
 namespace App\Cart\Test\Unit\AddToCart;
 
 use App\Cart\Entity\Cart;
+use App\Cart\Entity\CartItem;
 use App\Product\Test\Builder\ProductBuilder;
 use App\Shared\Domain\ValueObject\Id;
 use PHPUnit\Framework\TestCase;
@@ -18,10 +19,15 @@ class AddToCartTest extends TestCase
 
         $product = (new ProductBuilder())->build();
 
-        $cart->addProduct($product);
+        $item = new CartItem(
+            new Id(Uuid::uuid4()->toString()),
+            $product,
+            1
+        );
+        $cart->addItem($item);
 
-        $this->assertCount(1, $existingProduct = $cart->getProducts());
-        $this->assertEquals($product, $existingProduct[0]);
+        $this->assertCount(1, $existingItem = $cart->getItems());
+        $this->assertEquals($item, $existingItem[0]);
     }
 
     public function testAlreadyExists(): void
@@ -30,10 +36,14 @@ class AddToCartTest extends TestCase
             new Id(Uuid::uuid4()->toString())
         );
         $product = (new ProductBuilder())->build();
+        $item = new CartItem(
+            new Id(Uuid::uuid4()->toString()),
+            $product,
+            1
+        );
+        $cart->addItem($item);
+        $this->expectExceptionMessage('Item already exists.');
 
-        $cart->addProduct($product);
-        $this->expectExceptionMessage('Product already exists.');
-
-        $cart->addProduct($product);
+        $cart->addItem($item);
     }
 }

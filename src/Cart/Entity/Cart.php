@@ -15,12 +15,12 @@ class Cart
     #[ORM\Id]
     #[ORM\Column(type: 'id', unique: true)]
     private Id $id;
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'cart', cascade: ['all'], orphanRemoval: true)]
-    private Collection $products;
+    #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'cart', cascade: ['all'], orphanRemoval: true)]
+    private Collection $items;
     public function __construct(Id $id)
     {
         $this->id = $id;
-        $this->products = new ArrayCollection();
+        $this->items = new ArrayCollection();
     }
 
     public function getId(): Id
@@ -28,18 +28,18 @@ class Cart
         return $this->id;
     }
 
-    public function addProduct(Product $product): void
+    public function addItem(CartItem $item): void
     {
-        foreach ($this->products as $existingProduct) {
-            if($product->isEqualTo($existingProduct)) {
-                throw new \DomainException("Product already exists.");
+        foreach ($this->items as $existingItem) {
+            if($item->isEqualTo($existingItem)) {
+                throw new \DomainException("Item already exists.");
             }
         }
-        $this->products->add($product);
+        $this->items->add($item);
     }
 
-    public function getProducts(): array
+    public function getItems(): array
     {
-        return $this->products->toArray();
+        return $this->items->toArray();
     }
 }

@@ -3,9 +3,11 @@
 namespace App\Cart\AddToCart\Request;
 
 use App\Cart\AddToCart\Response\Response;
+use App\Cart\Entity\CartItem;
 use App\Cart\Entity\CartRepository;
 use App\Product\Entity\ProductRepository;
 use App\Shared\Domain\ValueObject\Id;
+use Ramsey\Uuid\Uuid;
 
 class Handler
 {
@@ -25,14 +27,17 @@ class Handler
             $cart = $this->carts->getCurrentCart();
         }
         $product = $this->products->get(new Id($command->productId));
-
-        $cart->addProduct($product);
+        $item = new CartItem(
+            Id::generate(),
+            $product,
+        );
+        $cart->addItem($item);
 
         $this->carts->save($cart);
 
         return new Response(
             $cart->getId()->getValue(),
-            $cart->getProducts()
+            $cart->getItems()
         );
     }
 }
