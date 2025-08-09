@@ -2,6 +2,7 @@
 
 namespace App\Auth\Entity;
 
+use App\Cart\Entity\Cart;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -36,6 +37,8 @@ class User
     private Role $role;
     #[ORM\OneToMany(targetEntity: UserNetwork::class, mappedBy: 'user', cascade: ['all'], orphanRemoval: true)]
     private Collection $networks;
+    #[ORM\OneToMany(targetEntity: UserCart::class, mappedBy: 'user', cascade: ['all'], orphanRemoval: true)]
+    private Collection $carts;
     public function __construct(Id $id, DateTimeImmutable $date, Email $email, Status $status)
     {
         $this->id = $id;
@@ -44,6 +47,7 @@ class User
         $this->status = $status;
         $this->role = Role::user();
         $this->networks = new ArrayCollection();
+        $this->carts = new ArrayCollection();
     }
     public static function requestJoinByEmail(
         Id $id,
@@ -194,6 +198,11 @@ class User
     public function changeRole(Role $role): void
     {
         $this->role = $role;
+    }
+    public function getCarts(): array
+    {
+        /** @var Cart[] */
+        return $this->carts->toArray();
     }
     #[ORM\Postload]
     public function checkEmbeds(): void
