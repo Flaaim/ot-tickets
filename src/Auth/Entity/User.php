@@ -39,7 +39,7 @@ class User
     #[ORM\OneToMany(targetEntity: UserNetwork::class, mappedBy: 'user', cascade: ['all'], orphanRemoval: true)]
     private Collection $networks;
     #[ORM\OneToOne(targetEntity: Cart::class, mappedBy: 'user', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    private ?Cart $cart = null;
+    private Cart $cart;
     public function __construct(Id $id, DateTimeImmutable $date, Email $email, Status $status)
     {
         $this->id = $id;
