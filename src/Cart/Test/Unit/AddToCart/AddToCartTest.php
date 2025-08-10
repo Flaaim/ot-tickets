@@ -2,6 +2,7 @@
 
 namespace App\Cart\Test\Unit\AddToCart;
 
+use App\Auth\Test\Builder\UserBuilder;
 use App\Cart\Entity\Cart;
 use App\Cart\Entity\CartItem;
 use App\Product\Test\Builder\ProductBuilder;
@@ -14,13 +15,14 @@ class AddToCartTest extends TestCase
     public function testSuccess(): void
     {
         $cart = new Cart(
-            new Id(Uuid::uuid4()->toString())
+            Id::generate(),
+            (new UserBuilder())->build()
         );
 
         $product = (new ProductBuilder())->build();
 
         $item = new CartItem(
-            new Id(Uuid::uuid4()->toString()),
+            ID::generate(),
             $product,
             1
         );
@@ -33,7 +35,8 @@ class AddToCartTest extends TestCase
     public function testAlreadyExists(): void
     {
         $cart = new Cart(
-            new Id(Uuid::uuid4()->toString())
+            Id::generate(),
+            (new UserBuilder())->build()
         );
         $product = (new ProductBuilder())->build();
         $item = new CartItem(

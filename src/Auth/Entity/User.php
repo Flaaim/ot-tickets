@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DomainException;
 use Doctrine\ORM\Mapping as ORM;
+use App\Shared\Domain\ValueObject\Id as ValueID;
 
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
@@ -37,8 +38,8 @@ class User
     private Role $role;
     #[ORM\OneToMany(targetEntity: UserNetwork::class, mappedBy: 'user', cascade: ['all'], orphanRemoval: true)]
     private Collection $networks;
-    #[ORM\OneToMany(targetEntity: UserCart::class, mappedBy: 'user', cascade: ['all'], orphanRemoval: true)]
-    private Collection $carts;
+    #[ORM\OneToOne(targetEntity: Cart::class, mappedBy: 'user', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private ?Cart $cart = null;
     public function __construct(Id $id, DateTimeImmutable $date, Email $email, Status $status)
     {
         $this->id = $id;
@@ -47,7 +48,7 @@ class User
         $this->status = $status;
         $this->role = Role::user();
         $this->networks = new ArrayCollection();
-        $this->carts = new ArrayCollection();
+        $this->cart = new Cart(ValueID::generate(), $this);
     }
     public static function requestJoinByEmail(
         Id $id,
@@ -199,10 +200,9 @@ class User
     {
         $this->role = $role;
     }
-    public function getCarts(): array
+    public function getCart(): ?Cart
     {
-        /** @var Cart[] */
-        return $this->carts->toArray();
+        return $this->cart;
     }
     #[ORM\Postload]
     public function checkEmbeds(): void

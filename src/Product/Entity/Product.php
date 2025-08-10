@@ -5,27 +5,36 @@ namespace App\Product\Entity;
 use App\Shared\Domain\ValueObject\Id;
 use DateTimeImmutable;
 use Webmozart\Assert\Assert;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity]
+#[ORM\Table(name: 'products')]
 class Product
 {
     public function __construct(
+        #[ORM\Id]
+        #[ORM\Column(type: 'id', unique: true)]
         private readonly Id                $id,
+        #[ORM\Column(type: 'string', length: 255)]
         private string                     $name,
+        #[ORM\Column(type: 'text')]
         private string                     $description,
+        #[ORM\Column(type: 'price', nullable: true)]
         private Price                      $price,
+        #[ORM\Column(type: 'string', length: 16)]
         private string                     $cipher,
+        #[ORM\Column(type: 'datetime_immutable')]
         private readonly DateTimeImmutable $updatedAt,
+        #[ORM\Column(type: 'status')]
         private Status                     $status,
+        #[ORM\OneToOne(targetEntity: File::class, cascade: ['persist'])]
+        #[ORM\JoinColumn(name: 'file_id')]
         private ?File                      $file = null
     ) {
         Assert::minLength($this->name, 3);
         Assert::minLength($this->description, 10);
         Assert::regex($this->cipher, '/^[A-Za-z0-9-]+$/');
         Assert::notNull($status);
-    }
-    public function isEqualTo(self $product): bool
-    {
-        return $product->getId() === $this->getId();
     }
 
     public function getId(): Id

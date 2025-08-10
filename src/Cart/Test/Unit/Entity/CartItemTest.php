@@ -2,6 +2,7 @@
 
 namespace App\Cart\Test\Unit\Entity;
 
+use App\Auth\Test\Builder\UserBuilder;
 use App\Cart\Entity\Cart;
 use App\Cart\Entity\CartItem;
 use App\Product\Test\Builder\ProductBuilder;
@@ -43,7 +44,7 @@ class CartItemTest extends TestCase
         $product = (new ProductBuilder())->build();
         $item = new CartItem(ID::generate(), $product);
 
-        $cart = new Cart(ID::generate());
+        $cart = new Cart(ID::generate(), (new UserBuilder())->build());
         $item->setCart($cart);
 
         $this->assertNotNull($item->getCart());

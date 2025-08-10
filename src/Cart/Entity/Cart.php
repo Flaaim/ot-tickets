@@ -2,6 +2,7 @@
 
 namespace App\Cart\Entity;
 
+use App\Auth\Entity\User;
 use App\Product\Entity\Product;
 use App\Shared\Domain\ValueObject\Id;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -17,9 +18,14 @@ class Cart
     private Id $id;
     #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'cart', cascade: ['all'], orphanRemoval: true)]
     private Collection $items;
-    public function __construct(Id $id)
+
+    #[ORM\OneToOne(targetEntity: User::class, inversedBy: 'cart')]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    private User $user;
+    public function __construct(Id $id, User $user)
     {
         $this->id = $id;
+        $this->user = $user;
         $this->items = new ArrayCollection();
     }
 
