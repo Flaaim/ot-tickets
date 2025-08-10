@@ -17,9 +17,9 @@ class CartItem
     private Cart $cart;
     #[ORM\ManyToOne(targetEntity: Product::class)]
     private Product $product;
-    #[ORM\Column(type: 'integer')]
-    private int $quantity;
-    public function __construct(Id $id, Product $product, int $quantity = 1)
+
+    private Quantity $quantity;
+    public function __construct(Id $id, Product $product, Quantity $quantity)
     {
         $this->id = $id;
         $this->product = $product;
@@ -35,7 +35,7 @@ class CartItem
     }
     public function getQuantity(): int
     {
-        return $this->quantity;
+        return $this->quantity->getValue();
     }
     public function isEqualTo(self $item): bool
     {

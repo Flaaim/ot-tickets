@@ -6,6 +6,7 @@ namespace App\Cart\Test\Unit\Entity;
 use App\Auth\Test\Builder\UserBuilder;
 use App\Cart\Entity\Cart;
 use App\Cart\Entity\CartItem;
+use App\Cart\Entity\Quantity;
 use App\Product\Test\Builder\ProductBuilder;
 use App\Shared\Domain\ValueObject\Id;
 use DomainException;
@@ -28,7 +29,7 @@ class CartTest extends TestCase
     {
         $cart = new Cart(ID::generate(), (new UserBuilder())->build());
 
-        $item = new CartItem(ID::generate(), (new ProductBuilder())->build());
+        $item = new CartItem(ID::generate(), (new ProductBuilder())->build(), Quantity::default());
         $cart->addItem($item);
 
         $this->assertCount(1, $cart->getItems());
@@ -39,7 +40,7 @@ class CartTest extends TestCase
         $cart = new Cart(ID::generate(), (new UserBuilder())->build());
         $product = (new ProductBuilder())->build();
 
-        $item = new CartItem(ID::generate(), $product);
+        $item = new CartItem(ID::generate(), $product, Quantity::default());
 
         $cart->addItem($item);
 

@@ -5,6 +5,7 @@ namespace App\Cart\Test\Unit\AddToCart;
 use App\Auth\Test\Builder\UserBuilder;
 use App\Cart\Entity\Cart;
 use App\Cart\Entity\CartItem;
+use App\Cart\Entity\Quantity;
 use App\Product\Test\Builder\ProductBuilder;
 use App\Shared\Domain\ValueObject\Id;
 use PHPUnit\Framework\TestCase;
@@ -24,7 +25,7 @@ class AddToCartTest extends TestCase
         $item = new CartItem(
             ID::generate(),
             $product,
-            1
+            Quantity::default()
         );
         $cart->addItem($item);
 
@@ -42,7 +43,7 @@ class AddToCartTest extends TestCase
         $item = new CartItem(
             new Id(Uuid::uuid4()->toString()),
             $product,
-            1
+            Quantity::default()
         );
         $cart->addItem($item);
         $this->expectExceptionMessage('Item already exists.');
