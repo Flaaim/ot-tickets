@@ -35,6 +35,7 @@ class Cart
                 throw new \DomainException("Item already exists.");
             }
         }
+        $item->setCart($this);
         $this->items->add($item);
     }
 

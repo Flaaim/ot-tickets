@@ -27,6 +27,7 @@ class Handler
             $cart = $this->carts->getCurrentCart();
         }
         $product = $this->products->get(new Id($command->productId));
+
         $item = new CartItem(
             Id::generate(),
             $product,

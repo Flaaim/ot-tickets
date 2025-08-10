@@ -7,11 +7,17 @@ use App\Shared\Domain\ValueObject\Id;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'cart_items')]
+#[ORM\Table(name: 'items')]
 class CartItem
 {
+    #[ORM\Id]
+    #[ORM\Column(type: 'id', unique: true)]
     private Id $id;
+    #[ORM\ManyToOne(targetEntity: Cart::class,  inversedBy: 'items')]
+    private Cart $cart;
+    #[ORM\ManyToOne(targetEntity: Product::class)]
     private Product $product;
+    #[ORM\Column(type: 'integer')]
     private int $quantity;
     public function __construct(Id $id, Product $product, int $quantity = 1)
     {
@@ -33,6 +39,16 @@ class CartItem
     }
     public function isEqualTo(self $item): bool
     {
-        return $this->id === $item->id;
+        return $this->product->getId()->equals($item->getProduct()->getId());
+    }
+
+    public function setCart(Cart $cart): void
+    {
+        $this->cart = $cart;
+    }
+
+    public function getCart(): Cart
+    {
+        return $this->cart;
     }
 }
