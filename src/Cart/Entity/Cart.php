@@ -18,7 +18,6 @@ class Cart
     private Id $id;
     #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'cart', cascade: ['all'], orphanRemoval: true)]
     private Collection $items;
-
     #[ORM\OneToOne(targetEntity: User::class, inversedBy: 'cart')]
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     private User $user;
@@ -48,5 +47,9 @@ class Cart
     public function getItems(): array
     {
         return $this->items->toArray();
+    }
+    public function clear(): void
+    {
+        $this->items->clear();
     }
 }
