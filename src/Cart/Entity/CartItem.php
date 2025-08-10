@@ -17,7 +17,7 @@ class CartItem
     private Cart $cart;
     #[ORM\ManyToOne(targetEntity: Product::class)]
     private Product $product;
-
+    #[ORM\Column(type: 'quantity', nullable: false)]
     private Quantity $quantity;
     public function __construct(Id $id, Product $product, Quantity $quantity)
     {

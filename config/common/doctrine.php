@@ -61,6 +61,9 @@ return [
                 App\Auth\Entity\StatusType::NAME => App\Auth\Entity\StatusType::class,
                 App\Auth\Entity\RoleType::NAME => App\Auth\Entity\RoleType::class,
 
+                /** CART */
+                App\Cart\Entity\QuantityType::NAME => App\Cart\Entity\QuantityType::class,
+
                 /** PRODUCT */
                 App\Product\Entity\StatusType::NAME => App\Product\Entity\StatusType::class,
                 App\Product\Entity\PriceType::NAME => App\Product\Entity\PriceType::class,
