@@ -52,4 +52,9 @@ class Cart
     {
         $this->items->clear();
     }
+
+    public function removeItem(CartItem $item): void
+    {
+        $this->items->removeElement($item);
+    }
 }
