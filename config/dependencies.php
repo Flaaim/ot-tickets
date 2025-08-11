@@ -4,24 +4,21 @@ declare(strict_types=1);
 
 
 use Dotenv\Dotenv;
+use Laminas\ConfigAggregator\ConfigAggregator;
+use Laminas\ConfigAggregator\PhpFileProvider;
 
-$app_env = getenv('APP_ENV');
+$app_env = getenv('APP_ENV') ?: 'prod';
 $file = ($app_env === 'dev') ? "dev.env" : ".env";
-if (file_exists(__DIR__ . '/common/env/' . $file)) {
-    $dotenv = Dotenv::createImmutable(__DIR__ . '/common/env/', $file);
+if (file_exists(__DIR__ . '/env/' . $file)) {
+    $dotenv = Dotenv::createImmutable(__DIR__ . '/env/', $file);
     $dotenv->load();
 } else {
     exit(".Env file not found");
 }
 
-$files = glob(__DIR__ . '/common/*.php');
+$aggregator = new ConfigAggregator([
+    new PhpFileProvider(__DIR__ . '/common/*.php'),
+    new PhpFileProvider(__DIR__ . '/' . (getenv('APP_ENV') ?: 'prod') . '/*.php'),
+]);
 
-
-$configs = array_map(
-    static function ($file){
-        return require $file;
-    },
-    $files
-);
-
-return array_merge_recursive(...$configs);
+return $aggregator->getMergedConfig();

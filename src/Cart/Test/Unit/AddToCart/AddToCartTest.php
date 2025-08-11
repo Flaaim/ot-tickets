@@ -2,9 +2,11 @@
 
 namespace App\Cart\Test\Unit\AddToCart;
 
+use App\Auth\Test\Builder\UserBuilder;
 use App\Cart\Entity\Cart;
-use App\Cart\Test\Unit\Builder\ProductBuilder;
-use App\Product\Entity\Product;
+use App\Cart\Entity\CartItem;
+use App\Cart\Entity\Quantity;
+use App\Product\Test\Builder\ProductBuilder;
 use App\Shared\Domain\ValueObject\Id;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -14,27 +16,38 @@ class AddToCartTest extends TestCase
     public function testSuccess(): void
     {
         $cart = new Cart(
-            new Id(Uuid::uuid4()->toString())
+            Id::generate(),
+            (new UserBuilder())->build()
         );
 
         $product = (new ProductBuilder())->build();
 
-        $cart->addProduct($product);
+        $item = new CartItem(
+            ID::generate(),
+            $product,
+            Quantity::default()
+        );
+        $cart->addItem($item);
 
-        $this->assertCount(1, $existingProduct = $cart->getProducts());
-        $this->assertEquals($product, $existingProduct[0]);
+        $this->assertCount(1, $existingItem = $cart->getItems());
+        $this->assertEquals($item, $existingItem[0]);
     }
 
     public function testAlreadyExists(): void
     {
         $cart = new Cart(
-            new Id(Uuid::uuid4()->toString())
+            Id::generate(),
+            (new UserBuilder())->build()
         );
         $product = (new ProductBuilder())->build();
+        $item = new CartItem(
+            new Id(Uuid::uuid4()->toString()),
+            $product,
+            Quantity::default()
+        );
+        $cart->addItem($item);
+        $this->expectExceptionMessage('Item already exists.');
 
-        $cart->addProduct($product);
-        $this->expectExceptionMessage('Product already exists.');
-
-        $cart->addProduct($product);
+        $cart->addItem($item);
     }
 }

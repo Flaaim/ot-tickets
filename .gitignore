@@ -1,4 +1,4 @@
 vendor
-config/common/env
+config/env
 .idea
 var

@@ -2,18 +2,30 @@
 
 namespace App\Cart\Entity;
 
+use App\Auth\Entity\User;
 use App\Product\Entity\Product;
 use App\Shared\Domain\ValueObject\Id;
-use ArrayObject;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity]
+#[ORM\Table(name: 'user_carts')]
 class Cart
 {
+    #[ORM\Id]
+    #[ORM\Column(type: 'id', unique: true)]
     private Id $id;
-    private ArrayObject $products;
-    public function __construct(Id $id)
+    #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'cart', cascade: ['all'], orphanRemoval: true)]
+    private Collection $items;
+    #[ORM\OneToOne(targetEntity: User::class, inversedBy: 'cart')]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    private User $user;
+    public function __construct(Id $id, User $user)
     {
         $this->id = $id;
-        $this->products = new ArrayObject();
+        $this->user = $user;
+        $this->items = new ArrayCollection();
     }
 
     public function getId(): Id
@@ -21,18 +33,28 @@ class Cart
         return $this->id;
     }
 
-    public function addProduct(Product $product): void
+    public function addItem(CartItem $item): void
     {
-        foreach ($this->products as $existingProduct) {
-            if($product->isEqualTo($existingProduct)) {
-                throw new \DomainException("Product already exists.");
+        foreach ($this->items as $existingItem) {
+            if($item->isEqualTo($existingItem)) {
+                throw new \DomainException("Item already exists.");
             }
         }
-        $this->products->append($product);
+        $item->setCart($this);
+        $this->items->add($item);
     }
 
-    public function getProducts(): array
+    public function getItems(): array
     {
-        return $this->products->getArrayCopy();
+        return $this->items->toArray();
+    }
+    public function clear(): void
+    {
+        $this->items->clear();
+    }
+
+    public function removeItem(CartItem $item): void
+    {
+        $this->items->removeElement($item);
     }
 }

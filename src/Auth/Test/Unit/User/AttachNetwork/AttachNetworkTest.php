@@ -2,7 +2,7 @@
 
 namespace App\Auth\Test\Unit\User\AttachNetwork;
 
-use App\Auth\Entity\NetworkIdentity;
+use App\Auth\Entity\Network;
 use App\Auth\Test\Builder\UserBuilder;
 use PHPUnit\Framework\TestCase;
 
@@ -14,7 +14,7 @@ class AttachNetworkTest extends TestCase
             ->active()
             ->build();
 
-        $network = new NetworkIdentity('google', '0001');
+        $network = new Network('google', '0001');
         $user->attachNetwork($network);
 
         self::assertCount(1, $networks = $user->getNetworks());
@@ -27,7 +27,7 @@ class AttachNetworkTest extends TestCase
             ->active()
             ->build();
 
-        $network = new NetworkIdentity('google', '0001');
+        $network = new Network('google', '0001');
         $user->attachNetwork($network);
 
         $this->expectExceptionMessage('Network is already attached.');
