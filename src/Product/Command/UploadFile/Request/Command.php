@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Product\UploadFile\Request;
+namespace App\Product\Command\UploadFile\Request;
 
 use Slim\Psr7\UploadedFile;
 use Webmozart\Assert\Assert;

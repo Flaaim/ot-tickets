@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Product\UploadProduct\Request;
+namespace App\Product\Command\UploadFile\Request;
 
-use App\Product\Command\CreateProduct\Request\Command;
 use App\Product\Entity\File\UploadDirectory;
 use App\Product\Entity\ProductRepository;
 use App\Product\Service\FileBuilder;
@@ -27,7 +26,7 @@ class Handler
         $this->products = $products;
     }
 
-    public function handle(Command $command)
+    public function handle(Command $command): Response
     {
         $product = $this->products->get(new Id($command->productId));
 
