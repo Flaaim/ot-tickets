@@ -9,6 +9,7 @@ use App\Product\Entity\ProductRepository;
 use App\Product\Entity\Status;
 use App\Shared\Domain\ValueObject\Id;
 use DateTimeImmutable;
+use Slim\Psr7\UploadedFile;
 
 class Handler
 {
@@ -27,7 +28,8 @@ class Handler
             new Price($command->price),
             $command->cipher,
             new DateTimeImmutable(),
-            Status::active()
+            Status::archive(),
+            $command->uploadedFile ?? null
         );
 
         $this->products->save($product);

@@ -3,6 +3,7 @@
 namespace App\Product\CreateProduct\Request;
 
 use DateTimeImmutable;
+use Slim\Psr7\UploadedFile;
 use Webmozart\Assert\Assert;
 
 class Command
@@ -11,7 +12,8 @@ class Command
         public readonly string $name,
         public readonly string $description,
         public readonly float $price,
-        public readonly string $cipher
+        public readonly string $cipher,
+        public readonly ?UploadedFile $uploadedFile = null
     ) {
         Assert::minLength($name, 3);
         Assert::minLength($description, 10);
