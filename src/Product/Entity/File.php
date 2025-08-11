@@ -37,6 +37,10 @@ class File
         $this->size = $size;
         $this->product = $product;
     }
+    public function getId(): Id
+    {
+        return $this->id;
+    }
     public function getPath(): string
     {
         return $this->path->getValue();

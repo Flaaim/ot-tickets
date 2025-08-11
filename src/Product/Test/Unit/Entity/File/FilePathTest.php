@@ -14,21 +14,19 @@ use Ramsey\Uuid\Uuid;
 class FilePathTest extends TestCase
 {
     private FilePath $filePath;
-    private UploadDirectory $uploadDirectory;
-    private FullName $fullName;
+
 
     private string $testFilePath;
     public function setUp(): void
     {
         $this->filePath = new FilePath(
-            $this->uploadDirectory = $this->getUploadDirectory(),
-            $this->fullName = $this->getFullName()
+            $this->testFilePath = $this->getFullFilePath()
         );
-        $this->testFilePath = $this->uploadDirectory->getUploadDirectory().'/'.$this->fullName->getValue();
     }
 
     public function testSuccess(): void
     {
+
         $this->assertNotNull($this->filePath->getValue());
         $this->assertEquals($this->testFilePath, $this->filePath->getValue());
     }
@@ -67,12 +65,15 @@ class FilePathTest extends TestCase
     }
 
 
-    private function getUploadDirectory(): UploadDirectory
+    private function getFullFilePath(): string
     {
-        return new UploadDirectory(
+        $directory =  new UploadDirectory(
             sys_get_temp_dir(),
             new FileSystem()
         );
+        return $directory->getUploadDirectory().
+            DIRECTORY_SEPARATOR.
+            ($this->getFullName())->getValue();
     }
 
 
