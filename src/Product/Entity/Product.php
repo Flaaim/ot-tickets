@@ -19,7 +19,7 @@ class Product
         private string                     $name,
         #[ORM\Column(type: 'text')]
         private string                     $description,
-        #[ORM\Column(type: 'price', nullable: true)]
+        #[ORM\Column(type: 'price')]
         private Price                      $price,
         #[ORM\Column(type: 'string', length: 16)]
         private string                     $cipher,
@@ -27,8 +27,7 @@ class Product
         private readonly DateTimeImmutable $updatedAt,
         #[ORM\Column(type: 'status')]
         private Status                     $status,
-        #[ORM\OneToOne(targetEntity: File::class, cascade: ['persist'])]
-        #[ORM\JoinColumn(name: 'file_id')]
+        #[ORM\OneToOne(targetEntity: File::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
         private ?File                      $file = null
     ) {
         Assert::minLength($this->name, 3);

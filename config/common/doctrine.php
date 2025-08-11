@@ -67,6 +67,12 @@ return [
                 /** PRODUCT */
                 App\Product\Entity\StatusType::NAME => App\Product\Entity\StatusType::class,
                 App\Product\Entity\PriceType::NAME => App\Product\Entity\PriceType::class,
+                App\Product\Entity\File\FileNameType::NAME => App\Product\Entity\File\FileNameType::class,
+                App\Product\Entity\File\FilePathType::NAME => App\Product\Entity\File\FilePathType::class,
+                App\Product\Entity\File\FileExtensionType::NAME => App\Product\Entity\File\FileExtensionType::class,
+                App\Product\Entity\File\FileSizeType::NAME => App\Product\Entity\File\FileSizeType::class,
+
+
 
                 App\Shared\Domain\ValueObject\IdType::NAME => App\Shared\Domain\ValueObject\IdType::class,
             ]

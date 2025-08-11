@@ -2,13 +2,14 @@
 
 namespace App\Product\Entity\File;
 
+
 class FilePath
 {
     private string $value;
 
-    public function __construct(UploadDirectory $uploadDirectory, Fullname $fullName){
+    public function __construct(string $fullFilePath){
 
-        $this->value = $uploadDirectory->getUploadDirectory() . '/' . $fullName->getValue();
+        $this->value = $fullFilePath;
     }
     public function getValue(): string
     {
